@@ -150,7 +150,7 @@ public class DataExtractor {
 	public static ArrayList<FrustrationEntry> extract_frustrationData(){
 		ArrayList<FrustrationEntry> res = new ArrayList<FrustrationEntry>();
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where ((ev = 'FrustrationReport') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689'))";
+		String sql = "select * from emu_android_success where ((ev = 'FrustrationReport') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689'))";
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		String currentuid = "";
 		int currenttaskid = 0;
@@ -189,7 +189,7 @@ public class DataExtractor {
 	public static double[][] extract_heatmap_data_onlyEndTrace(int _width, int _height){
 		double[][] data= new double[_width][_height];
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where (ev = 'WebViewOnTouch') and action = 'UP' ";
+		String sql = "select * from emu_android_success where (ev = 'WebViewOnTouch') and action = 'UP' ";
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		try{
 			while(rs1.next()){
@@ -240,7 +240,7 @@ public class DataExtractor {
 	public static ArrayList<WebviewTouchEntry> extractWebview_touchtrace_log(String _userid){
 		ArrayList<WebviewTouchEntry> result = new ArrayList<WebviewTouchEntry>();
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where (ev = 'WebViewOnTouch') AND uid = '" +  _userid + "';";
+		String sql = "select * from emu_android_success where (ev = 'WebViewOnTouch') AND uid = '" +  _userid + "';";
 		if(_userid == null)
 			return null;
 		ResultSet rs1 = db1.executeQuerySQL(sql);
@@ -293,7 +293,7 @@ public class DataExtractor {
 		ArrayList<double[]> result = new ArrayList<double[]>();
 		
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where (ev = 'WebClientScaleChange');";
+		String sql = "select * from emu_android_success where (ev = 'WebClientScaleChange');";
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		try {
 			while(rs1.next()){
@@ -315,7 +315,7 @@ public class DataExtractor {
 	public static ArrayList<WebviewTouchEntry> extractWebview_touchtrace_log(){
 		ArrayList<WebviewTouchEntry> result = new ArrayList<WebviewTouchEntry>();
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where (ev = 'WebViewOnTouch') ;";
+		String sql = "select * from emu_android_success where (ev = 'WebViewOnTouch') ;";
 
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		try {
@@ -371,7 +371,7 @@ public class DataExtractor {
 		String currentuid = "";
 		int currenttaskid = 0;
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where ((ev = 'WebViewOnTouch') or (ev = 'WebClientPageStart') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689'))";
+		String sql = "select * from emu_android_success where ((ev = 'WebViewOnTouch') or (ev = 'WebClientPageStart') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689'))";
 
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		try {
@@ -506,7 +506,7 @@ public class DataExtractor {
 	public static ArrayList<LoadingTimeEntry> extractIOLoadingTimeData(){
 		ArrayList<LoadingTimeEntry> result = new ArrayList<LoadingTimeEntry>();
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where ((ev = 'WebClientPageFinish') or (ev = 'WebClientPageStart') or (ev = 'OnProgressChange') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689'));";
+		String sql = "select * from emu_android_success where ((ev = 'WebClientPageFinish') or (ev = 'WebClientPageStart') or (ev = 'OnProgressChange') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689'));";
 		int curtaskIndex = 0;
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		try {
@@ -625,7 +625,7 @@ public class DataExtractor {
 	public static ArrayList<String> extractTextSequence(){
 		ArrayList<String> result = new ArrayList<String>();
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where (ev = 'UpdatedText')";
+		String sql = "select * from emu_android_success where (ev = 'UpdatedText')";
 
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		try {
@@ -646,7 +646,7 @@ public class DataExtractor {
 	public static ArrayList<TextInputEntry> extractTextSequence_withuid(){
 		ArrayList<TextInputEntry> result = new ArrayList<TextInputEntry>();
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where ((ev = 'UpdatedText') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689'))";
+		String sql = "select * from emu_android_success where ((ev = 'UpdatedText') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689'))";
 		int curtaskIndex = 0;
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		try {
@@ -796,7 +796,7 @@ public class DataExtractor {
 		String currentuid = "";
 		int currenttaskid = 0;
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where ((ev = 'Scroll') or (ev = 'WebClientPageStart') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689')) ";
+		String sql = "select * from emu_android_success where ((ev = 'Scroll') or (ev = 'WebClientPageStart') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689')) ";
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		try {
 			while(rs1.next()){
@@ -839,7 +839,7 @@ public class DataExtractor {
 		String currentuid = "";
 		int currenttaskid = 0;
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where ((ev = 'WebClientScaleChange') or (ev = 'WebClientPageStart') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689'))";
+		String sql = "select * from emu_android_success where ((ev = 'WebClientScaleChange') or (ev = 'WebClientPageStart') or (ev = 'StartNewTask')) and ((uid = 'twu37') or (uid = 'munch')  or (uid = 'twu372') or (uid = '1720689'))";
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		try {
 			while(rs1.next()){
@@ -876,7 +876,7 @@ public class DataExtractor {
 		ArrayList<ZoomEntry> zoomEntryInPage = new ArrayList<ZoomEntry>();
 		
 		DBUtil db1 = new DBUtil();
-		String sql = "select * from emu_android_frustration where (ev = 'WebClientScaleChange') or (ev = 'WebClientPageStart')";
+		String sql = "select * from emu_android_success where (ev = 'WebClientScaleChange') or (ev = 'WebClientPageStart')";
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		try {
 			while(rs1.next()){

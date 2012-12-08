@@ -1,4 +1,4 @@
-package VisualizationUtil;
+package visualizationUtil;
 
 import java.awt.Color;
 

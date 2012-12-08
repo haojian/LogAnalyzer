@@ -3,9 +3,9 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
-import VisualizationUtil.Gradient;
-import VisualizationUtil.HeatMap;
 import util.DataExtractor;
+import visualizationUtil.Gradient;
+import visualizationUtil.HeatMap;
 
 public class HeatMapViewer extends JFrame {
 	

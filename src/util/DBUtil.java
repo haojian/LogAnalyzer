@@ -116,7 +116,7 @@ public class DBUtil {
 			if (_conn == null || _conn.isClosed()) {
 				System.err.println("%connecting to " + fullUrl + "...");
 				createConn();
-				// conn.setAutoCommit(false);
+				_conn.setAutoCommit(false);
 			}
 			if (_stmt_insert_page == null || ((Connection) _stmt_insert_page).isClosed()) {
 				System.err.println("%creating page preparedstatement...");
@@ -203,7 +203,7 @@ public class DBUtil {
 				props.setProperty("password", _pwd);
 				// props.setProperty("ssl","true");
 				_conn = DriverManager.getConnection(_url, props);
-				// conn.setAutoCommit(false);
+				_conn.setAutoCommit(false);
 			}
 
 			if (_conn.isClosed()) {
@@ -213,7 +213,7 @@ public class DBUtil {
 				props.setProperty("password", _pwd);
 				// props.setProperty("ssl","true");
 				_conn = DriverManager.getConnection(_url, props);
-				// conn.setAutoCommit(false);
+				_conn.setAutoCommit(false);
 			}
 
 		} catch (SQLException ex) {
