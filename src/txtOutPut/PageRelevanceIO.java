@@ -132,13 +132,10 @@ public class PageRelevanceIO {
 					}
 				}
 				
-				if()
-				if(url != curStartUrl){
-					if(url.length() != 0){
-						pageRelevanceData.put(generateKey(userid, taskid, url), tmpRelevanceEntry);
-					}
-					url = curStartUrl;
+				if(rs1.getFloat("relevancerate") != 0){
+					generateKey(userid, taskid, url);
 				}
+				
 				String taskuid = rs1.getString("taskuid");
 				if(taskuid == null || taskuid.isEmpty() || !taskuid.startsWith(uid))
 					continue;
