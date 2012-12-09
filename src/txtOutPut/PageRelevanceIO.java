@@ -99,18 +99,50 @@ public class PageRelevanceIO {
 		extractDataBasedOnID("091401");
 	}
 	
-	public static void extractDataBasedOnID(String uid){
+	public boolean urlUpdate(){
+		return true;
+	} 
+	
+	public String generateKey(String uid, String taskid, String pageurl){
+		return uid + "_" + taskid + "_" + pageurl;
+	}
+	
+	public void extractDataBasedOnID(String uid){
 		DBUtil db1 = new DBUtil();
 		String sql = "select * from emu_android_success where (uid = '"+ uid + "') ";
 		ResultSet rs1 = db1.executeQuerySQL(sql);
 		
+		String url = "";
+		String userid = "";
+		String taskid = "";
+		
+		String curStartUrl = "";
+		String curFinishedUrl = "";
+		PageRelevanceEntry tmpRelevanceEntry= new PageRelevanceEntry();
 		try{
 			while(rs1.next()){
+				if(rs1.getString("starturl") != null &&  rs1.getString("starturl").isEmpty()){
+					curStartUrl = rs1.getString("starturl");
+				}
+				if(rs1.getString("finishurl") != null &&  rs1.getString("finishurl").isEmpty()){
+					curFinishedUrl = rs1.getString("finishurl");
+					if(curFinishedUrl != curStartUrl)
+					{
+						System.out.println("unvalidated");
+					}
+				}
+				
+				if()
+				if(url != curStartUrl){
+					if(url.length() != 0){
+						pageRelevanceData.put(generateKey(userid, taskid, url), tmpRelevanceEntry);
+					}
+					url = curStartUrl;
+				}
 				String taskuid = rs1.getString("taskuid");
 				if(taskuid == null || taskuid.isEmpty() || !taskuid.startsWith(uid))
 					continue;
 				System.out.println(taskuid);
-				
 			}
 		}
 		catch (SQLException e) {
