@@ -2,13 +2,15 @@ package txtOutPut;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 import util.DBUtil;
 
 public class PageRelevanceIO {
-	DescriptiveStatistics pressureStats, pressszieStats;
+	private Map<String, PageRelevanceEntry> pageRelevanceData;
 	
 	private static String[] dataColumnName = {
 		"pageurl_uid",
@@ -35,65 +37,87 @@ public class PageRelevanceIO {
 		"gesture_zoomout_scale_total",
 		"gesture_zoomout_scale_std",
 		
-		"gesture_scroll_count",
-		"gesture_scroll_length_total",
-		"gesture_scroll_length_avg",
-		"gesture_scroll_length_std",
+		"gesture_scrollX_count",
+		"gesture_scrollX_length_total",
+		"gesture_scrollX_length_avg",
+		"gesture_scrollX_length_std",
 		
-		"gesture_scroll_positive_count",
-		"gesture_scroll_positive_total",
-		"gesture_scroll_positive_length_avg",
-		"gesture_scroll_positive_length_std",
+		"gesture_scrollX_positive_count",
+		"gesture_scrollX_positive_total",
+		"gesture_scrollX_positive_length_avg",
+		"gesture_scrollX_positive_length_std",
 		
-		"gesture_scroll_negative_count",
-		"gesture_scroll_negative_total",
-		"gesture_scroll_negative_length_avg",
-		"gesture_scroll_negative_length_std",
+		"gesture_scrollX_negative_count",
+		"gesture_scrollX_negative_total",
+		"gesture_scrollX_negative_length_avg",
+		"gesture_scrollX_negative_length_std",
 		
-		"gesture_scroll_count",
-		"gesture_scroll_length_total",
-		"gesture_scroll_length_avg",
-		"gesture_scroll_length_std",
+		"gesture_scrollY_count",
+		"gesture_scrollY_length_total",
+		"gesture_scrollY_length_avg",
+		"gesture_scrollY_length_std",
 		
-		"gesture_scroll_positive_count",
-		"gesture_scroll_positive_total",
-		"gesture_scroll_positive_length_avg",
-		"gesture_scroll_positive_length_std",
+		"gesture_scrollY_positive_count",
+		"gesture_scrollY_positive_total",
+		"gesture_scrollY_positive_length_avg",
+		"gesture_scrollY_positive_length_std",
 		
-		"gesture_scroll_negative_count",
-		"gesture_scroll_negative_total",
-		"gesture_scroll_negative_length_avg",
-		"gesture_scroll_negative_length_std",
+		"gesture_scrollY_negative_count",
+		"gesture_scrollY_negative_total",
+		"gesture_scrollY_negative_length_avg",
+		"gesture_scrollY_negative_length_std",
+		
+		
 		//time association
 		"page_viewing_time",
 		"time_in_task",
 		
 		//search session association
 		"query_length",
-		"query_index"
+		"query_index",
+		"index_in_SERP"
 	};
 
 	public static PageRelevanceIO singlton = null;
 	
-	public PageRelevanceIO getInstance(){
+	public static PageRelevanceIO getInstance(){
 		if(singlton == null)
 			singlton = new PageRelevanceIO();
 		return singlton;
 	}
 
+	public static void main(String[] args){
+		PageRelevanceIO.getInstance().getRelevanceData();
+	}
+			
+	
 	public PageRelevanceIO(){
-		pressureStats = new DescriptiveStatistics();
-		pressszieStats = new DescriptiveStatistics();
-		
-		
+		pageRelevanceData = new HashMap<String, PageRelevanceEntry>();
 	}
 	
-	public void getPressureData(){
-		
+	public void getRelevanceData(){
+		extractDataBasedOnID("091401");
 	}
 	
 	public static void extractDataBasedOnID(String uid){
+		DBUtil db1 = new DBUtil();
+		String sql = "select * from emu_android_success where (uid = '"+ uid + "') ";
+		ResultSet rs1 = db1.executeQuerySQL(sql);
 		
+		try{
+			while(rs1.next()){
+				String taskuid = rs1.getString("taskuid");
+				if(taskuid == null || taskuid.isEmpty() || !taskuid.startsWith(uid))
+					continue;
+				System.out.println(taskuid);
+				
+			}
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		db1.rundown();
 	}
 	
 	public static double[][] extract_heatmap_data_onlyEndTrace(int _width, int _height){
