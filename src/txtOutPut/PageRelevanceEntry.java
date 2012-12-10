@@ -13,7 +13,6 @@ public class PageRelevanceEntry {
 	public DescriptiveStatistics gestureScrollSpeedYStats, gestureScrollSpeedYPositiveStats, gestureScrollSpeedYNegativeStats;
 	public DescriptiveStatistics gestureScrollDistXStats, gestureScrollDistYStats;
 	
-	
 	public long page_viewing_time;
 	public int time_in_task;
 	public int query_length;

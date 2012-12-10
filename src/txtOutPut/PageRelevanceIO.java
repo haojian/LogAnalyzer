@@ -18,6 +18,8 @@ import util.IOOperator;
 public class PageRelevanceIO {
 	private Map<String, PageRelevanceEntry> pageRelevanceData;
 	
+	private String path = "relevancepage.txt";
+	
 	private static String[] dataColumnName = {
 		"pageurl_uid",
 		//gesture association
@@ -101,6 +103,40 @@ public class PageRelevanceIO {
 		pageRelevanceData = new HashMap<String, PageRelevanceEntry>();
 	}
 	
+	public void writeWekaHeader(){
+		String content = "% ARFF file for the page-relevance with some numeric features%";
+		content += "@relation relevance \n";
+		content += "@ATTRIBUTE pressureStats_N NUMERIC \n" +
+				"@ATTRIBUTE pressureStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE pressureStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE pressureStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE pressureStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE pressureStats_STD NUMERIC \n";
+		content += "@ATTRIBUTE pressszieStats_N NUMERIC \n" +
+				"@ATTRIBUTE pressszieStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE pressszieStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE pressszieStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE pressszieStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE pressszieStats_STD NUMERIC \n";
+		content += "@ATTRIBUTE gestureLengthStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureLengthStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE gestureLengthStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE gestureLengthStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE gestureLengthStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE gestureLengthStats_STD NUMERIC \n";
+		content += "@ATTRIBUTE gestureSpeedStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureSpeedStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE gestureSpeedStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE gestureSpeedStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE gestureSpeedStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE gestureSpeedStats_STD NUMERIC \n";
+		
+		
+		content += "@ATTRIBUTE selfrelevanceReport NUMERIC \n";
+				
+		content += "@data \n";
+	}
+	
 	public void getRelevanceData(){
 		/*
 		for(String tmpID : ParametersCollection.getInstance().getUserIDList())
@@ -109,8 +145,41 @@ public class PageRelevanceIO {
 		extractDataBasedOnID("091401");
 		//Start output
 		for(Map.Entry<String, PageRelevanceEntry> tmp : pageRelevanceData.entrySet()){
-			 
-			IOOperator.writeToFile("relevancepage.txt", "test", true);
+			String content = "";
+			content += tmp.getKey() + ",";
+			content += tmp.getValue().pressureStats.getN() + ","
+					+ tmp.getValue().pressureStats.getMean() + ","
+					+ tmp.getValue().pressureStats.getMax() + ","
+					+ tmp.getValue().pressureStats.getMin() + ","
+					+ tmp.getValue().pressureStats.getSum() + ","
+					+ tmp.getValue().pressureStats.getStandardDeviation() + ",";
+			content += tmp.getValue().pressszieStats.getN() + ","
+					+ tmp.getValue().pressszieStats.getMean() + ","
+					+ tmp.getValue().pressszieStats.getMax() + ","
+					+ tmp.getValue().pressszieStats.getMin() + ","
+					+ tmp.getValue().pressszieStats.getSum()+ ","
+					+ tmp.getValue().pressszieStats.getStandardDeviation() + ",";
+			content += tmp.getValue().gestureLengthStatswithoutMultitouch.getN() + ","
+					+ tmp.getValue().gestureLengthStatswithoutMultitouch.getMean() + ","
+					+ tmp.getValue().gestureLengthStatswithoutMultitouch.getMax() + ","
+					+ tmp.getValue().gestureLengthStatswithoutMultitouch.getMin() + ","
+					+ tmp.getValue().gestureLengthStatswithoutMultitouch.getSum() + ","
+					+ tmp.getValue().gestureLengthStatswithoutMultitouch.getStandardDeviation() + ",";
+			content += tmp.getValue().gestureSpeedStatswithoutMultitouch.getN() + ","
+					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getMean() + ","
+					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getMax() + ","
+					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getMin() + ","
+					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getSum() + ","
+					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getStandardDeviation() + ",";
+			
+			content += tmp.getValue().gestureSpeedStatswithoutMultitouch.getN() + ","
+					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getMean() + ","
+					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getMax() + ","
+					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getMin() + ","
+					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getSum() + ","
+					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getStandardDeviation() + ",";
+			
+			IOOperator.writeToFile("path", content + "\n", true);
 		}
 	}
 	
