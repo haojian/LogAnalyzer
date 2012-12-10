@@ -18,8 +18,10 @@ import util.IOOperator;
 public class PageRelevanceIO {
 	private Map<String, PageRelevanceEntry> pageRelevanceData;
 	
-	private String path = "relevancepage.txt";
+	private String path = "relevancepage.arff";
 	
+	
+	//obsolete code.
 	private static String[] dataColumnName = {
 		"pageurl_uid",
 		//gesture association
@@ -95,6 +97,7 @@ public class PageRelevanceIO {
 	}
 
 	public static void main(String[] args){
+		PageRelevanceIO.getInstance().writeWekaHeader();
 		PageRelevanceIO.getInstance().getRelevanceData();
 	}
 			
@@ -104,8 +107,10 @@ public class PageRelevanceIO {
 	}
 	
 	public void writeWekaHeader(){
-		String content = "% ARFF file for the page-relevance with some numeric features%";
+		String content = "% ARFF file for the page-relevance with some numeric features% \n";
 		content += "@relation relevance \n";
+		//content += "@ATTRIBUTE pageurlid string \n";
+		
 		content += "@ATTRIBUTE pressureStats_N NUMERIC \n" +
 				"@ATTRIBUTE pressureStats_MEANN NUMERIC \n" +
 				"@ATTRIBUTE pressureStats_MAX NUMERIC \n" +
@@ -131,22 +136,86 @@ public class PageRelevanceIO {
 				"@ATTRIBUTE gestureSpeedStats_SUM NUMERIC \n" +
 				"@ATTRIBUTE gestureSpeedStats_STD NUMERIC \n";
 		
+		content += "@ATTRIBUTE gestureZoomStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureZoomStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE gestureZoomStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE gestureZoomStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE gestureZoomStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE gestureZoomStats_STD NUMERIC \n";
+		content += "@ATTRIBUTE gestureZoominStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureZoominStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE gestureZoominStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE gestureZoominStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE gestureZoominStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE gestureZoominStats_STD NUMERIC \n";
+		content += "@ATTRIBUTE gestureZoomoutStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureZoomoutStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE gestureZoomoutStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE gestureZoomoutStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE gestureZoomoutStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE gestureZoomoutStats_STD NUMERIC \n";
 		
+		content += "@ATTRIBUTE gestureMaxScrollXStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureMaxScrollYStats_MEANN NUMERIC \n";
+		
+		content += "@ATTRIBUTE gestureScrollXSpeedStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedStats_STD NUMERIC \n";
+		content += "@ATTRIBUTE gestureScrollXSpeedPositiveStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedPositiveStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedPositiveStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedPositiveStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedPositiveStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedPositiveStats_STD NUMERIC \n";
+		content += "@ATTRIBUTE gestureScrollXSpeedNegativeStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedNegativeStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedNegativeStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedNegativeStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedNegativeStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollXSpeedNegativeStats_STD NUMERIC \n";
+		content += "@ATTRIBUTE gestureScrollYSpeedStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedStats_STD NUMERIC \n";
+		content += "@ATTRIBUTE gestureScrollYSpeedPositiveStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedPositiveStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedPositiveStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedPositiveStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedPositiveStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedPositiveStats_STD NUMERIC \n";
+		content += "@ATTRIBUTE gestureScrollYSpeedNegativeStats_N NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedNegativeStats_MEANN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedNegativeStats_MAX NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedNegativeStats_MIN NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedNegativeStats_SUM NUMERIC \n" +
+				"@ATTRIBUTE gestureScrollYSpeedNegativeStats_STD NUMERIC \n";
+		
+		content += "@ATTRIBUTE page_viewing_time NUMERIC \n";
 		content += "@ATTRIBUTE selfrelevanceReport NUMERIC \n";
-				
+		//content += "@ATTRIBUTE selfrelevanceReport {relevant, unrelevant} \n";
+		
 		content += "@data \n";
+		
+		
+		IOOperator.writeToFile(path, content + "\n", true);
 	}
 	
 	public void getRelevanceData(){
-		/*
+		
 		for(String tmpID : ParametersCollection.getInstance().getUserIDList())
 			extractDataBasedOnID(tmpID);
-			*/
-		extractDataBasedOnID("091401");
+			
+		//extractDataBasedOnID("091401");
 		//Start output
 		for(Map.Entry<String, PageRelevanceEntry> tmp : pageRelevanceData.entrySet()){
 			String content = "";
-			content += tmp.getKey() + ",";
+			//content += tmp.getKey() + ",";
+			
 			content += tmp.getValue().pressureStats.getN() + ","
 					+ tmp.getValue().pressureStats.getMean() + ","
 					+ tmp.getValue().pressureStats.getMax() + ","
@@ -172,14 +241,80 @@ public class PageRelevanceIO {
 					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getSum() + ","
 					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getStandardDeviation() + ",";
 			
-			content += tmp.getValue().gestureSpeedStatswithoutMultitouch.getN() + ","
-					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getMean() + ","
-					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getMax() + ","
-					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getMin() + ","
-					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getSum() + ","
-					+ tmp.getValue().gestureSpeedStatswithoutMultitouch.getStandardDeviation() + ",";
+			content += tmp.getValue().gestureZoomStats.getN() + ","
+					+ tmp.getValue().gestureZoomStats.getMean() + ","
+					+ tmp.getValue().gestureZoomStats.getMax() + ","
+					+ tmp.getValue().gestureZoomStats.getMin() + ","
+					+ tmp.getValue().gestureZoomStats.getSum() + ","
+					+ tmp.getValue().gestureZoomStats.getStandardDeviation() + ",";
+			content += tmp.getValue().gestureZoominStats.getN() + ","
+					+ tmp.getValue().gestureZoominStats.getMean() + ","
+					+ tmp.getValue().gestureZoominStats.getMax() + ","
+					+ tmp.getValue().gestureZoominStats.getMin() + ","
+					+ tmp.getValue().gestureZoominStats.getSum() + ","
+					+ tmp.getValue().gestureZoominStats.getStandardDeviation() + ",";
+			content += tmp.getValue().gestureZoomOutStats.getN() + ","
+					+ tmp.getValue().gestureZoomOutStats.getMean() + ","
+					+ tmp.getValue().gestureZoomOutStats.getMax() + ","
+					+ tmp.getValue().gestureZoomOutStats.getMin() + ","
+					+ tmp.getValue().gestureZoomOutStats.getSum() + ","
+					+ tmp.getValue().gestureZoomOutStats.getStandardDeviation() + ",";
 			
-			IOOperator.writeToFile("path", content + "\n", true);
+			content += tmp.getValue().gestureScrollDistXStats.getMax() + ","
+					+ tmp.getValue().gestureScrollDistYStats.getMax() + ",";
+			
+			content += tmp.getValue().gestureScrollSpeedXStats.getN() + ","
+					+ tmp.getValue().gestureScrollSpeedXStats.getMean() + ","
+					+ tmp.getValue().gestureScrollSpeedXStats.getMax() + ","
+					+ tmp.getValue().gestureScrollSpeedXStats.getMin() + ","
+					+ tmp.getValue().gestureScrollSpeedXStats.getSum() + ","
+					+ tmp.getValue().gestureScrollSpeedXStats.getStandardDeviation() + ",";
+			content += tmp.getValue().gestureScrollSpeedXPositiveStats.getN() + ","
+					+ tmp.getValue().gestureScrollSpeedXPositiveStats.getMean() + ","
+					+ tmp.getValue().gestureScrollSpeedXPositiveStats.getMax() + ","
+					+ tmp.getValue().gestureScrollSpeedXPositiveStats.getMin() + ","
+					+ tmp.getValue().gestureScrollSpeedXPositiveStats.getSum() + ","
+					+ tmp.getValue().gestureScrollSpeedXPositiveStats.getStandardDeviation() + ",";
+			content += tmp.getValue().gestureScrollSpeedXNegativeStats.getN() + ","
+					+ tmp.getValue().gestureScrollSpeedXNegativeStats.getMean() + ","
+					+ tmp.getValue().gestureScrollSpeedXNegativeStats.getMax() + ","
+					+ tmp.getValue().gestureScrollSpeedXNegativeStats.getMin() + ","
+					+ tmp.getValue().gestureScrollSpeedXNegativeStats.getSum() + ","
+					+ tmp.getValue().gestureScrollSpeedXNegativeStats.getStandardDeviation() + ",";
+			
+			content += tmp.getValue().gestureScrollSpeedYStats.getN() + ","
+					+ tmp.getValue().gestureScrollSpeedYStats.getMean() + ","
+					+ tmp.getValue().gestureScrollSpeedYStats.getMax() + ","
+					+ tmp.getValue().gestureScrollSpeedYStats.getMin() + ","
+					+ tmp.getValue().gestureScrollSpeedYStats.getSum() + ","
+					+ tmp.getValue().gestureScrollSpeedYStats.getStandardDeviation() + ",";
+			content += tmp.getValue().gestureScrollSpeedYPositiveStats.getN() + ","
+					+ tmp.getValue().gestureScrollSpeedYPositiveStats.getMean() + ","
+					+ tmp.getValue().gestureScrollSpeedYPositiveStats.getMax() + ","
+					+ tmp.getValue().gestureScrollSpeedYPositiveStats.getMin() + ","
+					+ tmp.getValue().gestureScrollSpeedYPositiveStats.getSum() + ","
+					+ tmp.getValue().gestureScrollSpeedYPositiveStats.getStandardDeviation() + ",";
+			content += tmp.getValue().gestureScrollSpeedYNegativeStats.getN() + ","
+					+ tmp.getValue().gestureScrollSpeedYNegativeStats.getMean() + ","
+					+ tmp.getValue().gestureScrollSpeedYNegativeStats.getMax() + ","
+					+ tmp.getValue().gestureScrollSpeedYNegativeStats.getMin() + ","
+					+ tmp.getValue().gestureScrollSpeedYNegativeStats.getSum() + ","
+					+ tmp.getValue().gestureScrollSpeedYNegativeStats.getStandardDeviation() + ",";
+			
+			content += tmp.getValue().page_viewing_time + ",";
+			
+			content	+= tmp.getValue().relevance_report;
+			
+			/*
+			if(tmp.getValue().relevance_report >3){
+				content += "relevant";
+			}
+			else
+				content += "unrelevant";
+			
+			content = content.replace("NaN,", "0,");
+			*/
+			IOOperator.writeToFile(path, content + "\n", true);
 		}
 	}
 	
@@ -189,7 +324,7 @@ public class PageRelevanceIO {
 	
 	public String generateKey(String uid, String taskid, String pageurl){
 		//System.out.println(uid + "_" + taskid + "_" + pageurl);
-		return uid + "_" + taskid + "_" + pageurl;
+		return uid + taskid + pageurl;
 	}
 	
 	public void extractDataBasedOnID(String uid){
@@ -326,8 +461,8 @@ public class PageRelevanceIO {
 						int time_dur = (int) (time - last_scrolltime);
 						double speedX =  scrollx_dist/time_dur;
 						double speedY =  scrolly_dist/time_dur;
-						tmpRelevanceEntry.gestureScrollSpeedXStats.addValue(speedX);
-						tmpRelevanceEntry.gestureScrollSpeedYStats.addValue(speedY);
+						tmpRelevanceEntry.gestureScrollSpeedXStats.addValue(speedX * speedX);
+						tmpRelevanceEntry.gestureScrollSpeedYStats.addValue(speedY * speedY);
 						if(speedX>0)
 							tmpRelevanceEntry.gestureScrollSpeedXPositiveStats.addValue(speedX);
 						else
