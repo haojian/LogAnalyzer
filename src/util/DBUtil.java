@@ -118,19 +118,19 @@ public class DBUtil {
 				createConn();
 				_conn.setAutoCommit(false);
 			}
-			if (_stmt_insert_page == null || ((Connection) _stmt_insert_page).isClosed()) {
+			if (_stmt_insert_page == null || _stmt_insert_page.isClosed()) {
 				System.err.println("%creating page preparedstatement...");
 				_stmt_insert_page = _conn.prepareStatement(_sql_insert_page);
 			}
-			if (_stmt_insert_event == null || ((Connection) _stmt_insert_event).isClosed()) {
+			if (_stmt_insert_event == null || ( _stmt_insert_event).isClosed()) {
 				System.err.println("%creating event preparedstatement...");
 				_stmt_insert_event = _conn.prepareStatement(_sql_insert_event);
 			}
-			if (_stmt_insert_mouse == null || ((Connection) _stmt_insert_mouse).isClosed()) {
+			if (_stmt_insert_mouse == null || ( _stmt_insert_mouse).isClosed()) {
 				System.err.println("%creating mouse preparedstatement...");
 				_stmt_insert_mouse = _conn.prepareStatement(_sql_insert_mouse);
 			}
-			if (_stmt_insert_content == null || ((Connection) _stmt_insert_content).isClosed()) {
+			if (_stmt_insert_content == null || ( _stmt_insert_content).isClosed()) {
 				System.err.println("%creating content preparedstatement...");
 				_stmt_insert_content = _conn.prepareStatement(_sql_insert_content);
 			}
