@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/commons-collections-3.2.1-javadoc.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/Sunny/Haojian/libraries/commons-collections-3.2.1-javadoc.jar"/>
-	<classpathentry kind="lib" path="/Users/Sunny/Haojian/libraries/commons-collections-3.2.1-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/Sunny/Haojian/libraries/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="/Users/Sunny/Haojian/libraries/commons-math3-3.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="/Users/Sunny/Haojian/libraries/commons-math3-3.0-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/Sunny/Haojian/libraries/commons-math3-3.0.jar"/>
-	<classpathentry kind="lib" path="/Users/Sunny/Haojian/libraries/commons-net-3.1-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/Sunny/Haojian/libraries/commons-net-3.1.jar"/>
-	<classpathentry kind="lib" path="/Users/Sunny/Haojian/libraries/jcommon-1.0.17.jar"/>
-	<classpathentry kind="lib" path="/Users/Sunny/Haojian/libraries/jfreechart-1.0.14.jar"/>
-	<classpathentry kind="lib" path="/Users/Sunny/Haojian/libraries/postgresql-9.1-901.jdbc4.jar"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/commons-collections-3.2.1-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/commons-math3-3.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/commons-math3-3.0-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/commons-math3-3.0.jar"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/commons-net-3.1-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/commons-net-3.1.jar"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/jcommon-1.0.17.jar"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/jfreechart-1.0.14.jar"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/postgresql-9.1-901.jdbc4.jar"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
