@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/jfreechart-1.0.14.jar"/>
 	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/postgresql-9.1-901.jdbc4.jar"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/Users/haojianjin/Dropbox/eclipse_workspace/libraries/jsoup-1.7.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
