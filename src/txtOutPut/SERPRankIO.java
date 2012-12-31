@@ -32,15 +32,73 @@ public class SERPRankIO {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		IOOperator.writeToFile(IOOutputpath, "%%%%%%%userID" +"\t" + "taskid" + "\t"+ "serpIndexinTask" + "\t"  + "rank" + "\t" + "url" + "\n", true);
+		IOOperator.writeToFile(IOOutputpath, "%%%%%%%userID" +"\t" + "taskid" + "\t"+ "serpIndexinTask" + "\t"  + "main_rank" + "\t" +"deep_rank"+ "\t" + "url" + "\n", true);
 
 		SERPRankIO.getInstance().output();
+		//test function
+		//SERPRankIO.getInstance().outputTest();
+	}
+	
+	public void outputTest(){
+		File file = new File(SERPDataFileDirectory + "/SERPHTML_100501_4_0.txt");
+		processSERP_v2(file);
 	}
 
 	public void output(){
 		traverse();
 		for(int i=0; i<templist.length; i++){
 			extract(templist[i]);
+		}
+	}
+	
+	public void processSERP_v2(File input){
+		try{
+			Document doc = Jsoup.parse(input, "UTF-8", "");
+			Element content = doc.getElementById("rso");
+			if(content == null){
+				return;
+			}
+			Elements lis = content.getElementsByTag("li");
+			int rank = -1;
+			for(Element li : lis){
+				rank++;
+				// to remove the news box, image box, google map results in serp.
+				if(li.parent() != content){
+					//continue;
+				}
+				String id = li.attr("id");
+				if(id == "newsbox" || id == "imagebox_bigimages"){
+					//continue;
+				}
+				Elements links = li.getElementsByTag("a");
+				if(links.size() == 0){
+					System.out.print(links.size());
+					continue;
+				}
+				
+				String linkHref = links.get(0).attr("href");
+				if(linkHref.startsWith("/")){
+					//continue;
+				}
+				IOOperator.writeToFile(IOOutputpath, curID +"\t" + curTaskID + "\t"+ curSerpIndex + "\t"  + rank + "\t" + "-1" +"\t" + linkHref + "\n", true);
+				System.out.println("rank " + rank + "\t" + linkHref);
+				
+				Elements deep = li.getElementsByClass("fc");
+				System.out.print(deep.size() + "\n");
+				if(deep.size() == 1)
+				{
+					int deeprank = 0;
+					Elements deeplinks = deep.get(0).getElementsByTag("a");
+					for(Element deeplink : deeplinks){
+						IOOperator.writeToFile(IOOutputpath, curID +"\t" + curTaskID + "\t"+ curSerpIndex + "\t"  + rank + "\t" + deeprank +"\t" + deeplink.attr("href") + "\n", true);
+						System.out.println("deeprank " + deeprank + "\t" + deeplink.attr("href"));
+						deeprank++;
+					}
+				}
+			}
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -74,11 +132,7 @@ public class SERPRankIO {
 				}
 				IOOperator.writeToFile(IOOutputpath, curID +"\t" + curTaskID + "\t"+ curSerpIndex + "\t"  + rank + "\t" + linkHref + "\n", true);
 				System.out.println("rank " + rank + "\t" + linkHref);
-				/*
-				HistoryEntry tmpEntry = new HistoryEntry(entry.timeStr, false, linkHref, entry.task_id);
-				insertList(unviewedPagesList, tmpEntry);
-				wholeurlset.add(linkHref);
-				*/
+
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -109,7 +163,7 @@ public class SERPRankIO {
 		curSerpIndex = input.getName().substring(serpstartIndex, serpendIndex);
 
 		System.out.println(input.getName() +"\n"+  curID + "\t" + curTaskID + "\t" + curSerpIndex);
-		processSERP(input);
+		processSERP_v2(input);
 	}
 	
 	public void traverse(){
