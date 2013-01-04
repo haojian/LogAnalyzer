@@ -32,7 +32,7 @@ public class SERPRankIO {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		IOOperator.writeToFile(IOOutputpath, "%%%%%%%userID" +"\t" + "taskid" + "\t"+ "serpIndexinTask" + "\t"  + "main_rank" + "\t" +"deep_rank"+ "\t" + "url" + "\n", true);
+		IOOperator.writeToFile(IOOutputpath, "%%%%%%%userID" +"\t" + "taskid" + "\t"+ "serpIndexinTask" + "\t"  + "main_rank" + "\t" +"deep_rank"+ "\t" + "content_rank" + "\t" + "url" + "\n", true);
 
 		SERPRankIO.getInstance().output();
 		//test function
@@ -40,7 +40,7 @@ public class SERPRankIO {
 	}
 	
 	public void outputTest(){
-		File file = new File(SERPDataFileDirectory + "/SERPHTML_100501_4_0.txt");
+		File file = new File(SERPDataFileDirectory + "/SERPHTML_100501_7_2.txt");
 		processSERP_v2(file);
 	}
 
@@ -80,7 +80,7 @@ public class SERPRankIO {
 				if(linkHref.startsWith("/")){
 					//continue;
 				}
-				IOOperator.writeToFile(IOOutputpath, curID +"\t" + curTaskID + "\t"+ curSerpIndex + "\t"  + rank + "\t" + "-1" +"\t" + linkHref + "\n", true);
+				IOOperator.writeToFile(IOOutputpath, curID +"\t" + curTaskID + "\t"+ curSerpIndex + "\t"  + rank + "\t" + "-1" +"\t" + "-1" + "\t" + linkHref + "\n", true);
 				System.out.println("rank " + rank + "\t" + linkHref);
 				
 				Elements deep = li.getElementsByClass("fc");
@@ -90,10 +90,16 @@ public class SERPRankIO {
 					int deeprank = 0;
 					Elements deeplinks = deep.get(0).getElementsByTag("a");
 					for(Element deeplink : deeplinks){
-						IOOperator.writeToFile(IOOutputpath, curID +"\t" + curTaskID + "\t"+ curSerpIndex + "\t"  + rank + "\t" + deeprank +"\t" + deeplink.attr("href") + "\n", true);
+						IOOperator.writeToFile(IOOutputpath, curID +"\t" + curTaskID + "\t"+ curSerpIndex + "\t"  + rank + "\t" + deeprank +"\t" + "-1" + "\t" + deeplink.attr("href") + "\n", true);
 						System.out.println("deeprank " + deeprank + "\t" + deeplink.attr("href"));
 						deeprank++;
 					}
+				}
+				int contentRank = 0;
+				for(Element curElement : links){
+					IOOperator.writeToFile(IOOutputpath, curID +"\t" + curTaskID + "\t"+ curSerpIndex + "\t"  + rank + "\t" + "-1" +"\t" + contentRank + "\t" + curElement.attr("href") + "\n", true);
+					System.out.println("content_rank " + rank + "\t" + curElement.attr("href"));
+					contentRank++;
 				}
 			}
 		}catch (IOException e) {
